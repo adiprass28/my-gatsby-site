@@ -19,296 +19,270 @@ Prequisites:
 ## Create a Website using Gatsby Starter
 
 1. In terminal, run:
-```bash
-gatsby new {project-name} https://github.com/gatsbyjs/gatsby-starter-hello-world
-cd {project-name}
-gatsby develop
-```
+    ```
+    // terminal
+    gatsby new {project-name} https://github.com/gatsbyjs/gatsby-starter-hello-world
+
+    cd {project-name}
+    
+    gatsby develop
+    ```
 
 ## Add Plugins to Your Blog Site
 
 1. Install gatsby-source-filesystem plugin
-```bash
-npm install gatsby-source-filesystem
-```
+    ```bash
+    npm install gatsby-source-filesystem
+    ```
 2. Use this code
-```javascript
-// gatsby-config.js
+    ```javascript
+    // gatsby-config.js
 
-module.exports = {
-  plugins: [
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `pages`,
-        path: `${__dirname}/src/images/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `data`,
-        path: `${__dirname}/src/posts/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `data`,
-        path: `${__dirname}/src/pages/`,
-      },
-    },
-  ],
-}
-```
+    module.exports = {
+      plugins: [
+        {
+          resolve: `gatsby-source-filesystem`,
+          options: {
+            name: `pages`,
+            path: `${__dirname}/src/images/`,
+          },
+        },
+        {
+          resolve: `gatsby-source-filesystem`,
+          options: {
+            name: `data`,
+            path: `${__dirname}/src/posts/`,
+          },
+        },
+        {
+          resolve: `gatsby-source-filesystem`,
+          options: {
+            name: `data`,
+            path: `${__dirname}/src/pages/`,
+          },
+        },
+      ],
+    }
+    ```
 3. In src folder, add posts and images directories.
-4. install gatsby-transformer-sharp\
-visit https://www.gatsbyjs.com/plugins/gatsby-transformer-sharp/
-```bash
-npm install gatsby-transformer-sharp gatsby-plugin-sharp
-```
-```javascript
-// gatsby-config.js
-module.exports = {
-  plugins: [`gatsby-plugin-sharp`, `gatsby-transformer-sharp`],
-}
-```
-5. Install gatsby-plugin-mdx\
-visit https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/
-```shell
-npm install gatsby-plugin-mdx @mdx-js/mdx @mdx-js/react
-npm install gatsby-remark-images
-```
-```javascript
-// gatsby-config.js
-module.exports = {
-  plugins: [
+4. Install gatsby-transformer-sharp  
+Visit https://www.gatsbyjs.com/plugins/gatsby-transformer-sharp
+
+    npm install gatsby-transformer-sharp gatsby-plugin-sharp
+
+    // gatsby-config.js
+    module.exports = {
+      plugins: [`gatsby-plugin-sharp`, `gatsby-transformer-sharp`],
+    }
+5. Install gatsby-plugin-mdx  
+Visit https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/
+
+    npm install gatsby-plugin-mdx @mdx-js/mdx @mdx-js/react
+    npm install gatsby-remark-images
+
+    // gatsby-config.js
+    module.exports = {
+      plugins: [
+        {
+          resolve: `gatsby-plugin-mdx`,
+          options: {
+            extensions: [`.mdx`, `.md`],
+          },
+        },
+      ],
+    }
+
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+            },
+          },
+        ],
       },
     },
-  ],
-}
-```
-```javascript
-{
-  resolve: `gatsby-plugin-mdx`,
-  options: {
-    gatsbyRemarkPlugins: [
+
+6. Install gatsby-plugin-google-fonts-v2  
+Visit https://www.gatsbyjs.com/plugins/gatsby-plugin-google-fonts-v2/
+
+    npm install gatsby-plugin-google-fonts-v2
+
+    // gatsby-config.js
+    plugins: [
       {
-        resolve: `gatsby-remark-images`,
+        resolve: `gatsby-plugin-google-fonts-v2`,
         options: {
-          maxWidth: 1200,
-        },
-      },
-    ],
-  },
-},
-```
-6. Install gatsby-plugin-google-fonts-v2\
-visit https://www.gatsbyjs.com/plugins/gatsby-plugin-google-fonts-v2/
-```bash
-npm install gatsby-plugin-google-fonts-v2
-```
-```javascript
-// gatsby-config.js
-plugins: [
-  {
-    resolve: `gatsby-plugin-google-fonts-v2`,
-    options: {
-      fonts: [
-        {
-          family: 'JetBrains Mono',
-          weights: ['100', '400']
-        },
-        {
-          family: 'Roboto Mono',
-          weights: ['100..400']
+          fonts: [
+            {
+              family: 'JetBrains Mono',
+              weights: ['100', '400']
+            },
+            {
+              family: 'Roboto Mono',
+              weights: ['100..400']
+            }
+          ]
         }
-      ]
-    }
-  }
-];
-```
+      }
+    ];
 
 ## Add Markdown Files in Posts Folder
 
 1. Create "my-first-post" name folder in src/posts folder.
 2. Create "index.mdx" name file and copy image from external resource in my-first-post folder.
 3. In index.mdx file, create:
-```mdx
----
-title: My First Post! Hello world!
-slug: my-first-post
-date: 2022-01-13
-featureImage: gurun.jpg
-excerpt: lorem ipsum
----
-```
+    ```mdx
+    ---
+    title: My First Post! Hello world!
+    slug: my-first-post
+    date: 2022-01-13
+    featureImage: gurun.jpg
+    excerpt: lorem ipsum
+    ---
+    ```
 4. In terminal, run:
-```bash
-gatsby develop
-```
-5. Open http://localhost:8000/___graphql link.
+
+    `gatsby develop`
+
+5. Open [GraphiQL link (localhost)](http://localhost:8000/___graphql)
 6. In GaphiQL console to see the specified data, run:
-```
-query MyQuery {
-  allMdx {
-    edges {
-      node {
-        frontmatter {
-          date
-          excerpt
-          slug
-          title
-          featureImage {
-            childrenImageSharp {
-              fixed
+    ```
+    query MyQuery {
+      allMdx {
+        edges {
+          node {
+            frontmatter {
+              date
+              excerpt
+              slug
+              title
+              featureImage {
+                childrenImageSharp {
+                  fixed
+                }
+              }
             }
           }
         }
       }
     }
-  }
-}
-```
-7. Create more folder in srrc/posts folder, then repeat from step 1 with a little modification.
+    ```
+7. Create more folder in `src/posts` directory, then repeat from step 1 with a little modification.
 
 ## Use Styled Components
 
-1. visit to https://www.gatsbyjs.com/docs/how-to/styling/styled-components/ for more information
+1. Visit to [styled-components](https://www.gatsbyjs.com/docs/how-to/styling/styled-components/) for more information
 2. In terminal, run:
-```bash
-npm install gatsby-plugin-styled-components styled-components babel-plugin-styled-components
-```
+    ```bash
+    npm install gatsby-plugin-styled-components styled-components babel-plugin-styled-components
+    ```
 3. In src folder create "themes" name folder then create "theme.js" file in it.
 4. 
-```javascript
-// gatsby-config.js
-module.exports = {
-  plugins: [`gatsby-plugin-styled-components`],
-}
-```
+    ```javascript
+    // gatsby-config.js
+    module.exports = {
+      plugins: [`gatsby-plugin-styled-components`],
+    }
+    ```
 5. 
-```javascript
-// src/themes/theme.js
-export default {
-  fonts: {
-    main: "Neonderthaw, cursive",
-    code: "Roboto Mono, monospace",
-  },
-  colors: {
-    main1: "hsl(207,70%,59%)",
-    dark1: "hsl(227,2%,12%)",
-    light1: "hsl(0,0%,97%)",
-  },
-  breakpoints: {
-    mobile: "only screen and (max-width: 50rem)",
-    tablet: "only screen and (max-width: 60rem)",
-  },
-  spacing: {
-    xxSmall: ".25rem",
-    xSmall: ".5rem",
-    small: "1rem",
-    medium: "2rem",
-    large: "3rem",
-    xLarge: "4rem",
-    xxLarge: "6rem"
-  },
-  animations: {
-    button: "box-shadow 0.3s ease",
-    link: "color 0.2s ease",
-  },
-  shadows: {
-    shadow1: "0px 5px, 20px rgba(30, 30, 31, 0.05)",
-  },
-}
-```
+    ```javascript
+    // src/themes/theme.js
+    export default {
+      fonts: {
+        main: "Neonderthaw, cursive",
+        code: "Roboto Mono, monospace",
+      },
+      colors: {
+        main1: "hsl(207,70%,59%)",
+        dark1: "hsl(227,2%,12%)",
+        light1: "hsl(0,0%,97%)",
+      },
+      breakpoints: {
+        mobile: "only screen and (max-width: 50rem)",
+        tablet: "only screen and (max-width: 60rem)",
+      },
+      spacing: {
+        xxSmall: ".25rem",
+        xSmall: ".5rem",
+        small: "1rem",
+        medium: "2rem",
+        large: "3rem",
+        xLarge: "4rem",
+        xxLarge: "6rem"
+      },
+      animations: {
+        button: "box-shadow 0.3s ease",
+        link: "color 0.2s ease",
+      },
+      shadows: {
+        shadow1: "0px 5px, 20px rgba(30, 30, 31, 0.05)",
+      },
+    }
+    ```
 
 ## Styled Components Theme Provider
 
 1. Create two file in main directory, "gatsby-browser.js" and "gatsby-ssr.js" file
 2. 
-```javascript
-// gatsby-browser.js
-import React from "react"
-import { ThemeProvider } from "styled-components"
-import Theme from "./src/themes/theme"
+    ```javascript
+    // gatsby-browser.js
+    import React from "react"
+    import { ThemeProvider } from "styled-components"
+    import Theme from "./src/themes/theme"
 
-export const wrapRootElement = ({ element }) => (
-  <ThemeProvider theme={Theme}>
-    {element}
-  </ThemeProvider>
-)
-```
+    export const wrapRootElement = ({ element }) => (
+      <ThemeProvider theme={Theme}>
+        {element}
+      </ThemeProvider>
+    )
+    ```
 
 ## Create Global Styles
 
 1. 
-```javascript
-// gatsby-browser.js
-// and
-// gatsby-ssr.js
+    ```javascript
+    // gatsby-browser.js
+    // and
+    // gatsby-ssr.js
 
-...
-import { createGlobalStyle, ThemeProvider } from "styled-components"
-import Theme from "./src/themes/theme.js"
+    ...
+    import { createGlobalStyle, ThemeProvider } from "styled-components"
+    import Theme from "./src/themes/theme.js"
 
-const GlobalStyles = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+    const GlobalStyles = createGlobalStyle`
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  body, html {
-    font-family: ${props => props.theme.Theme.fonts.main};
-    height: 100%;
-    background-color: ${props => props.theme.colors.dark1};
-  }
-`
-export const wrapRootElement = ({ element }) => (
-  <ThemeProvider theme={Theme}>
-    <GlobalStyles />
-    {element}
-  </ThemeProvider>
-)
-
-```
+      body, html {
+        font-family: ${props => props.theme.Theme.fonts.main};
+        height: 100%;
+        background-color: ${props => props.theme.colors.dark1};
+      }
+    `
+    export const wrapRootElement = ({ element }) => (
+      <ThemeProvider theme={Theme}>
+        <GlobalStyles />
+        {element}
+      </ThemeProvider>
+    )
+    ```
 
 ## Create Pages Programmatically
 
-1. Visit to https://www.gatsbyjs.com/docs/programmatically-create-pages-from-data/ link
-2. Create "gatsby-node.js" file in main directory.
-3. In terminal, run:
-```bash
-gatsby develop
-```
-4. Open  http://localhost:8000/___graphql link
-5. In GraphiQl console, run:
-```js
-query MyQuery {
-  allMdx(sort: {fields: frontmatter___date, order: DESC}) {
-    edges {
-      node {
-        frontmatter {
-          slug
-        }
-        id
-      }
-    }
-  }
-}
-```
-5. 
-```js
-// gatsby-node.js
-
-exports.createPages = async function ({ actions, graphql }) {
-  const { data } = await graphql`
-    query {
+1. Visit to [programmatically-create-pages-from-data](https://www.gatsbyjs.com/docs/programmatically-create-pages-from-data/)
+2. In terminal, run:  
+    `gatsby develop`  
+3. Open  http://localhost:8000/___graphql link
+4. In GraphiQl console, run:
+    ```js
+    query MyQuery {
       allMdx(sort: {fields: frontmatter___date, order: DESC}) {
         edges {
           node {
@@ -320,11 +294,30 @@ exports.createPages = async function ({ actions, graphql }) {
         }
       }
     }
-  `
+    ```
+5. 
+    ```js
+    // gatsby-node.js
 
-  // Create paginated pages for posts
+    exports.createPages = async function ({ actions, graphql }) {
+      const { data } = await graphql`
+        query {
+          allMdx(sort: {fields: frontmatter___date, order: DESC}) {
+            edges {
+              node {
+                frontmatter {
+                  slug
+                }
+                id
+              }
+            }
+          }
+        }
+      `
 
-  const postPerPage = 2
+      // Create paginated pages for posts
 
-}
-```
+      const postPerPage = 2
+
+    }
+    ```
